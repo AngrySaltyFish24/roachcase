@@ -24,7 +24,7 @@ classifiers = [
 
 dynamic = ["readme", "version"]
 requires-python = ">=3.8"
-dependencies = ["importlib-metadata"]
+dependencies = ["importlib-metadata", "boto3"]
 authors = [
   { name = "Stefano Berri", email = "s.berri@gmail.com" },
 ]
