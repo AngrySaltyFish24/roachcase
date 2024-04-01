@@ -17,7 +17,6 @@ def add_player(player: str) -> None:
 
 def remove_player(player: str) -> None:
     """Remove a player from the roachcase"""
-    print("testing")
     _controller.remove_player(player)
 
 
