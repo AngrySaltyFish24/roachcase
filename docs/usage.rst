@@ -27,3 +27,11 @@ We can now retrieve all the registered players::
 And we should get the following::
 
     ['Alice', 'Bob']
+
+We can also remove players that we no longer want in the roachcase::
+
+    roachcase.remove_player("Alice")
+
+This will remove the player "Alice" so the only player left in the roachcase is
+Bob.
+
