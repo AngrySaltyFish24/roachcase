@@ -84,3 +84,9 @@ class TestDynamoDBPlayerRepository(test_repositories.TestInMemoryPlayerRepositor
     @pytest.mark.livedb
     def test_adding_player_with_same_name_raises(self, john, repo):
         super().test_adding_player_with_same_name_raises(john, repo)
+        super().test_add_get_item_on_empty_table(gateway)
+
+    @pytest.mark.slow
+    @pytest.mark.livedb
+    def test_add_remove_item_on_empty_table(self, gateway):
+        super().test_add_remove_item(gateway)

@@ -13,3 +13,7 @@ class ManagePlayerUseCase:
     def add_player(self, name: str) -> None:
         player = _entities.Player(name)
         self.__player_repo.add(player)
+
+    def remove_player(self, name: str) -> None:
+        player = _entities.Player(name)
+        self.__player_repo.remove(player)

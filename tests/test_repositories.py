@@ -16,6 +16,10 @@ class TestInMemoryPlayerRepository:
         expected = [john]
         assert list(observed) == expected
 
+        repo.remove(john)
+        observed = repo.get()
+        assert list(observed) == []
+
     def test_adding_player_with_same_name_raises(self, john, repo):
         repo.add(john)
         with pytest.raises(_repositories.PlayerAlreadyExistError):

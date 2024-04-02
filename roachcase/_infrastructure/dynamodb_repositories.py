@@ -41,6 +41,13 @@ class DynamoDBGateway:
             waiter = self.__client.get_waiter("table_exists")
             waiter.wait(TableName=table_name)
 
+    def remove(self, table_name: str, item: Dict[str, Any]) -> None:
+        """Add an item to a table"""
+        try:
+            self.__client.delete_item(TableName=table_name, Key=item)
+        except botocore.exceptions.ClientError as error:
+            self.__handle_error(error)
+
     def add(self, table_name: str, item: Dict[str, Any]) -> None:
         """Add an item to a table"""
         try:

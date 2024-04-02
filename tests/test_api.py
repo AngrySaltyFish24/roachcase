@@ -14,14 +14,31 @@ def test_set_persistence():
     assert observed == []
 
 
-def test_add_list_players():
+@pytest.fixture
+def mem_persistance():
     roachcase.set_persistence("memory")
-    observed = roachcase.list_players()
-    assert observed == []
-    roachcase.add_player("Bob")
-    roachcase.add_player("Alice")
-    observed = roachcase.list_players()
-    assert set(observed) == set(["Alice", "Bob"])
+    yield
     roachcase.set_persistence("memory")
-    observed = roachcase.list_players()
-    assert observed == []
+
+
+class TestPlayerManagement:
+    def check_empty_list_players(self):
+        observed = roachcase.list_players()
+        assert observed == []
+
+    def check_add_players(self):
+        roachcase.add_player("Bob")
+        roachcase.add_player("Alice")
+        observed = roachcase.list_players()
+        assert set(observed) == set(["Alice", "Bob"])
+
+    def check_remove_players(self):
+        roachcase.remove_player("Alice")
+        observed = roachcase.list_players()
+        assert set(observed) == set(["Bob"])
+
+    @pytest.mark.usefixtures("mem_persistance")
+    def test_management(self):
+        self.check_empty_list_players()
+        self.check_add_players()
+        self.check_remove_players()

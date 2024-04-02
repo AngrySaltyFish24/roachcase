@@ -24,6 +24,13 @@ def add_player(player: str) -> None:
     use_case.add_player(player)
 
 
+def remove_player(player: str) -> None:
+    """Remove a player to the roachcase"""
+    factory = get_use_case_factory()
+    use_case = factory.build_manage_players()
+    use_case.remove_player(player)
+
+
 def set_persistence(
     persistence: str = "memory", path: Optional[Union[str, pathlib.Path]] = None
 ) -> None:

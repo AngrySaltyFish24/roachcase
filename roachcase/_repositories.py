@@ -14,6 +14,10 @@ class PlayerRepository(abc.ABC):
         """Add a player to the repository"""
 
     @abc.abstractmethod
+    def remove(self, player: _entities.Player) -> None:
+        """Get players from the repository"""
+
+    @abc.abstractmethod
     def get(self) -> Iterable[_entities.Player]:
         """Get players from the repository"""
 
@@ -33,6 +37,12 @@ class InMemoryPlayerRepository(PlayerRepository):
         if player.get_name() in names:
             raise PlayerAlreadyExistError()
         self.__store.append(player)
+
+    def remove(self, player: _entities.Player) -> None:
+        filtered = filter(
+            lambda existing_player: existing_player != player, self.__store
+        )
+        self.__store = list(filtered)
 
     def get(self) -> Iterable[_entities.Player]:
         return iter(self.__store)

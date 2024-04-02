@@ -15,6 +15,12 @@ def add_player(player: str) -> None:
     _controller.add_player(player)
 
 
+def remove_player(player: str) -> None:
+    """Remove a player from the roachcase"""
+    print("testing")
+    _controller.remove_player(player)
+
+
 def set_persistence(
     persistence: str = "memory", path: Optional[Union[str, pathlib.Path]] = None
 ) -> None:

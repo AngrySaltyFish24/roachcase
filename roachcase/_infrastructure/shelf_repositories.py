@@ -31,6 +31,13 @@ class ShelfPlayerRepository(_repositories.PlayerRepository):
                 result = db["players"]
         return result
 
+    def remove(self, player: _entities.Player) -> None:
+        """Get players from the repository"""
+        with shelve.open(self.__db_file) as db:
+            db["players"] = list(
+                filter(lambda existing_player: existing_player != player, db["players"])
+            )
+
 
 class ShelfRepositoryFactory(_repositories.RepositoryFactory):
     def __init__(self, db_file: pathlib.Path):
