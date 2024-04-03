@@ -2,6 +2,11 @@ import pytest
 import roachcase
 
 
+@pytest.fixture
+def clear_memory(autouse=True):
+    roachcase.set_persistence("memory")
+
+
 def test_set_persistence():
     observed = roachcase.list_players()
     assert observed == []
@@ -12,13 +17,6 @@ def test_set_persistence():
     roachcase.set_persistence("memory")
     observed = roachcase.list_players()
     assert observed == []
-
-
-@pytest.fixture
-def mem_persistance():
-    roachcase.set_persistence("memory")
-    yield
-    roachcase.set_persistence("memory")
 
 
 class TestPlayerManagement:
@@ -37,8 +35,7 @@ class TestPlayerManagement:
         observed = roachcase.list_players()
         assert set(observed) == set(["Bob"])
 
-    @pytest.mark.usefixtures("mem_persistance")
-    def test_management(self):
+    def test_player_management(self):
         self.check_empty_list_players()
         self.check_add_players()
         self.check_remove_players()
