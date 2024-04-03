@@ -27,3 +27,8 @@ class TestInMemoryPlayerRepository:
         another_player_named_john = _entities.Player("John")
         with pytest.raises(_repositories.PlayerAlreadyExistError):
             repo.add(another_player_named_john)
+
+    def test_add_remove_item(self, john, repo):
+        repo.add(john)
+        repo.remove(john)
+        assert list(repo.get()) == []
